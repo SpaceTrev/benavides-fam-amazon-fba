@@ -1,0 +1,51 @@
+{
+  "tools": [
+    {
+      "name": "Helium 10",
+      "cost_monthly": 99,
+      "tier": "Platinum Plan",
+      "purpose": "Comprehensive market research, keyword analysis, competitor tracking",
+      "required": true,
+      "alternative": "AMZScout ($49/mo) or Jungle Scout ($39/mo)"
+    },
+    {
+      "name": "SellerAmp",
+      "cost_monthly": 30,
+      "tier": "Standard",
+      "purpose": "Real-time profitability checks for arbitrage",
+      "required": false,
+      "use_if": "Doing OA or RA (online/retail arbitrage)"
+    },
+    {
+      "name": "Keepa",
+      "cost_monthly": 15,
+      "tier": "Basic",
+      "purpose": "Price history tracking, deal validation",
+      "required": true,
+      "alternative": "CamelCamelCamel (free but less features)"
+    },
+    {
+      "name": "Amazon Brand Registry",
+      "cost_monthly": 0,
+      "tier": "Free",
+      "purpose": "Protect brand, enable A+ content",
+      "required": false,
+      "use_if": "Creating private label products"
+    },
+    {
+      "name": "Amazon Advertising",
+      "cost_monthly": "Variable (pay per click)",
+      "tier": "Built-in",
+      "purpose": "PPC campaigns for product launches",
+      "required": true,
+      "notes": "Budget $15-20/day for testing, $40-50/day when scaling"
+    }
+  ],
+  "estimated_monthly_tool_costs": {
+    "minimal_stack": 114,
+    "minimal_stack_includes": ["Helium 10", "Keepa"],
+    "full_stack": 144,
+    "full_stack_includes": ["Helium 10", "SellerAmp", "Keepa"],
+    "notes": "Plus $39.99/mo Amazon Professional Seller account"
+  }
+}

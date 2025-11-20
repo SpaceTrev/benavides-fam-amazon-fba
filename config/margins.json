@@ -1,0 +1,45 @@
+{
+  "target_net_margin_pct": 25,
+  "min_acceptable_margin_pct": 20,
+  "ideal_price_range": {
+    "min": 15,
+    "max": 75,
+    "notes": "Sweet spot for impulse purchases with decent margins"
+  },
+  "target_acos_pct": {
+    "launch_phase": 35,
+    "optimization_phase": 25,
+    "scaling_phase": 20,
+    "notes": "ACoS = (Ad Spend / Ad Revenue) x 100"
+  },
+  "margin_by_method": {
+    "POD": {
+      "typical_margin_pct": 45,
+      "range": "30-60%",
+      "notes": "Highest margins but lowest absolute revenue per unit"
+    },
+    "OA": {
+      "typical_margin_pct": 28,
+      "range": "15-35%",
+      "notes": "Reliable margins, requires finding deals"
+    },
+    "RA": {
+      "typical_margin_pct": 30,
+      "range": "20-40%",
+      "notes": "Similar to OA but more hands-on"
+    },
+    "FBA_batch": {
+      "typical_margin_pct": 35,
+      "range": "25-45%",
+      "notes": "Best margins if validated first"
+    }
+  },
+  "validation_thresholds": {
+    "min_monthly_sales": 300,
+    "max_top_seller_reviews": 500,
+    "max_top_3_market_share_pct": 70,
+    "max_weight_lbs": 2,
+    "max_price_volatility_pct": 20,
+    "notes": "All thresholds must pass for product to be viable"
+  }
+}

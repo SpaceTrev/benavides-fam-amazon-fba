@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+
+# Product research folders (keep structure, not data)
+products/*/
+!products/.gitkeep

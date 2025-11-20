@@ -1,0 +1,31 @@
+{
+  "name": "benavides-fam-amazon-fba",
+  "version": "1.0.0",
+  "description": "Automation tools for running a lean Amazon FBA side business",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "create-product-kit": "tsx tools/create-product-kit.ts",
+    "create-listing-pack": "tsx tools/create-listing-pack.ts",
+    "generate-action-plan": "tsx tools/generate-action-plan.ts",
+    "calculate-margins": "tsx tools/calculate-margins.ts"
+  },
+  "keywords": [
+    "amazon",
+    "fba",
+    "automation",
+    "e-commerce"
+  ],
+  "author": "Benavides Family",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/yargs": "^17.0.32",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "tsx": "^4.7.0",
+    "yargs": "^17.7.2"
+  }
+}

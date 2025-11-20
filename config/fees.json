@@ -1,0 +1,75 @@
+{
+  "categories": {
+    "Amazon Device Accessories": {
+      "referral_fee_pct": 45,
+      "notes": "Highest referral fee on Amazon"
+    },
+    "Books": {
+      "referral_fee_pct": 15,
+      "notes": "Standard category"
+    },
+    "Home & Kitchen": {
+      "referral_fee_pct": 15,
+      "notes": "Popular category for beginners"
+    },
+    "Toys & Games": {
+      "referral_fee_pct": 15,
+      "notes": "Good for seasonal and year-round"
+    },
+    "Sports & Outdoors": {
+      "referral_fee_pct": 15,
+      "notes": "Wide variety of products"
+    },
+    "Office Products": {
+      "referral_fee_pct": 15,
+      "notes": "B2B and consumer demand"
+    },
+    "Pet Supplies": {
+      "referral_fee_pct": 15,
+      "notes": "Non-food only for beginners"
+    },
+    "Beauty & Personal Care": {
+      "referral_fee_pct": 15,
+      "notes": "GATED - requires approval"
+    },
+    "Health & Household": {
+      "referral_fee_pct": 15,
+      "notes": "Some subcategories gated"
+    },
+    "Clothing & Accessories": {
+      "referral_fee_pct": 17,
+      "notes": "Slightly higher referral fee"
+    },
+    "Jewelry": {
+      "referral_fee_pct": 20,
+      "notes": "GATED - high fees"
+    },
+    "Watches": {
+      "referral_fee_pct": 16,
+      "notes": "GATED"
+    }
+  },
+  "fba_fees": {
+    "standard_size": {
+      "small_under_10oz": 2.50,
+      "small_10oz_to_1lb": 2.63,
+      "large_under_1lb": 3.31,
+      "large_1lb_to_2lb": 4.75,
+      "large_2lb_to_3lb": 5.40,
+      "notes": "Standard size = longest side <18in, median <14in, shortest <8in"
+    },
+    "oversize": {
+      "small_oversize": 8.26,
+      "medium_oversize": 10.53,
+      "large_oversize": 75.78,
+      "notes": "Most beginners should avoid oversize products"
+    }
+  },
+  "storage_fees": {
+    "jan_to_sep_per_cubic_ft": 0.78,
+    "oct_to_dec_per_cubic_ft": 2.40,
+    "notes": "Q4 storage fees are 3x higher - plan inventory accordingly"
+  },
+  "monthly_professional_fee": 39.99,
+  "notes": "All fees accurate as of 2025. Source: Amazon Seller Central Fee Schedule"
+}
