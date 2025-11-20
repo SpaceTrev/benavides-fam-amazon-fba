@@ -35,21 +35,43 @@ This repo supports **4 low-inventory Amazon selling methods**:
 
 ## 🚀 Quick Start (5 Minutes)
 
-### Step 1: Install Node.js
-1. Download from https://nodejs.org (LTS version)
-2. Run installer
-3. Verify: `node --version`
+### Option A: Web Interface (Recommended for Non-Technical Users)
 
-### Step 2: Install Dependencies
-```bash
-cd benavides-fam-amazon-fba
-npm install
-```
+1. **Install Node.js**
+   - Download from https://nodejs.org (LTS version)
+   - Run installer and verify: `node --version`
 
-### Step 3: Create Your First Product Research Kit
-```bash
-npm run create-product-kit -- --product "fuzzy-socks"
-```
+2. **Install Dependencies**
+   ```bash
+   cd benavides-fam-amazon-fba
+   npm install
+   cd web && npm install && cd ..
+   ```
+
+3. **Start the Web App**
+   ```bash
+   npm run web
+   ```
+   Then open http://localhost:3000 in your browser
+
+4. **Use the Visual Interface**
+   - Fill out the "Create New Product Kit" form
+   - Click "Create Product Kit"
+   - Select your product from the list
+   - View and edit files directly in the browser
+
+### Option B: Command Line (For Developers)
+
+1. **Install Dependencies**
+   ```bash
+   cd benavides-fam-amazon-fba
+   npm install
+   ```
+
+2. **Create Product Kit**
+   ```bash
+   npm run create-product-kit -- --product "fuzzy-socks"
+   ```
 
 **You'll get:**
 ```

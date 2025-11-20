@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "web": "cd web && npm run dev",
+    "web:build": "cd web && npm run build",
     "create-product-kit": "tsx tools/create-product-kit.ts",
     "create-listing-pack": "tsx tools/create-listing-pack.ts",
     "generate-action-plan": "tsx tools/generate-action-plan.ts",
