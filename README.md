@@ -95,6 +95,26 @@ npm run create-listing-pack -- --product "fuzzy-socks"
 
 ---
 
+## 🌐 Web App Deployment
+
+The web interface can be deployed to Vercel for online access:
+
+1. **Connect your GitHub repository to Vercel**
+   - Visit [vercel.com](https://vercel.com) and sign in with GitHub
+   - Import this repository
+
+2. **Deploy automatically**
+   - The included `vercel.json` configuration handles the monorepo structure
+   - Vercel will automatically detect and deploy the Next.js app from the `web/` directory
+
+3. **Alternative: Manual configuration**
+   - In Vercel project settings, set "Root Directory" to `web`
+   - All other settings will auto-detect
+
+For detailed deployment instructions, see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
+
+---
+
 ## 🛠️ Available Tools
 
 ### 1. `create-product-kit`
