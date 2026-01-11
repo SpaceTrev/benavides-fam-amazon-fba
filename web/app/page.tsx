@@ -14,8 +14,7 @@ export default function MarketingHome() {
               <div className="relative w-48 h-12">
                 {/* Logo placeholder - user needs to save their logo as futurekind-logo.png */}
                 <div className="text-2xl font-bold">
-                  <span className="text-blue-400">Future</span>
-                  <span className="text-green-400">kind</span>
+                  <span className="text-blue-400">Future</span><span className="text-green-400">Kind</span>
                   <span className="text-blue-300 text-sm ml-2">MSC LLC</span>
                 </div>
               </div>
@@ -61,8 +60,7 @@ export default function MarketingHome() {
                 {/* Logo will be displayed here once saved */}
                 <div className="flex items-center justify-center h-full">
                   <div className="text-6xl font-bold">
-                    <span className="text-blue-400">Future</span>
-                    <span className="text-green-400">kind</span>
+                    <span className="text-blue-400">Future</span><span className="text-green-400">Kind</span>
                   </div>
                 </div>
               </div>
@@ -114,7 +112,7 @@ export default function MarketingHome() {
 
           <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20">
             <p className="text-xl md:text-2xl text-gray-200 leading-relaxed text-center">
-              Futurekind MSC's mission is to make sustainable living easier by carefully
+              FutureKind MSC's mission is to make sustainable living easier by carefully
               selecting eco-friendly products that meet high standards for quality, durability,
               and value—so families can make better choices without overthinking every purchase.
             </p>
@@ -127,7 +125,7 @@ export default function MarketingHome() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Why Choose Futurekind?
+              Why Choose FutureKind?
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-green-400 mx-auto"></div>
           </div>
@@ -206,8 +204,7 @@ export default function MarketingHome() {
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="text-2xl font-bold mb-4">
-                <span className="text-blue-400">Future</span>
-                <span className="text-green-400">kind</span>
+                <span className="text-blue-400">Future</span><span className="text-green-400">Kind</span>
               </div>
               <p className="text-gray-400">
                 Making sustainable living easier, one product at a time.
@@ -246,7 +243,7 @@ export default function MarketingHome() {
           </div>
 
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; {new Date().getFullYear()} Futurekind MSC LLC. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} FutureKind MSC LLC. All rights reserved.</p>
           </div>
         </div>
       </footer>
