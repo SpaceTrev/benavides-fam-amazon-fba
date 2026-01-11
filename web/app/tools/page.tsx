@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import CreateProductForm from '@/components/CreateProductForm';
 import ProductList from '@/components/ProductList';
 import FileViewer from '@/components/FileViewer';
-import Link from 'next/link';
 
 interface Product {
   name: string;
@@ -13,7 +13,7 @@ interface Product {
   files: string[];
 }
 
-export default function ToolsPage() {
+export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
@@ -54,8 +54,11 @@ export default function ToolsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <Link href="/" className="text-sm text-blue-600 hover:text-blue-700 mb-2 inline-block">
-                ← Back to Home
+              <Link href="/" className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 mb-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Futurekind MSC
               </Link>
               <h1 className="text-3xl font-bold text-gray-900">
                 Amazon FBA Research Hub
