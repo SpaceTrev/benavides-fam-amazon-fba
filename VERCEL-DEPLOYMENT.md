@@ -167,36 +167,71 @@ This means you can update your site by:
 
 ---
 
-## Environment Variables (If Needed Later)
+## Environment Variables
 
-To add API keys or secrets:
+**IMPORTANT:** You must add these environment variables before deploying:
 
 1. Vercel → Your Project → **"Settings"** → **"Environment Variables"**
-2. Add variables like:
-   - `AMAZON_API_KEY`
-   - `NEXT_PUBLIC_AMAZON_SELLER_ID`
+2. Add the following variables:
+
+### Required Authentication Variables:
+
+| Variable Name | Description | Example Value |
+|--------------|-------------|---------------|
+| `AUTH_SECRET` | Secret for NextAuth session encryption | Generate: `openssl rand -base64 32` |
+| `AUTH_URL` | Your production domain | `https://futurekindmsc.com` |
+| `ADMIN_EMAIL` | Admin login email | `admin@futurekindmsc.com` |
+| `ADMIN_PASSWORD_HASH` | Bcrypt password hash | Generate: `node -e "console.log(require('bcryptjs').hashSync('YOUR_PASSWORD', 10))"` |
+
+### How to Generate Values:
+
+**Generate AUTH_SECRET:**
+```bash
+openssl rand -base64 32
+```
+
+**Generate ADMIN_PASSWORD_HASH:**
+```bash
+cd web
+node -e "console.log(require('bcryptjs').hashSync('your-secure-password', 10))"
+```
+
+### Optional Variables (if using Vercel Postgres):
+- `POSTGRES_URL`
+- `POSTGRES_PRISMA_URL`
+- `POSTGRES_URL_NO_SSL`
+- `POSTGRES_URL_NON_POOLING`
+
 3. Click **"Save"**
 4. Redeploy for changes to take effect
 
 ---
 
-## Protecting the /tools Route
+## Admin Access
 
-The admin tools at `/tools` are currently public. To protect them:
+After deploying with environment variables:
 
-### Option 1: Keep the URL Private
-- Don't link to `/tools` from the marketing site
-- Only access it yourself by going directly to the URL
-- Bookmark: `https://futurekindmsc.com/tools`
+1. Visit: `https://futurekindmsc.com/admin`
+2. You'll be redirected to the login page
+3. Use your configured admin credentials
+4. Access the product research tools
 
-### Option 2: Add Password Protection (Recommended)
+**Note:** The admin tools are now protected by authentication. Only users with valid credentials can access `/admin`.
 
-**Using Vercel Password Protection:**
-1. Go to Vercel → Project → **"Settings"** → **"Protection"**
-2. Enable **"Vercel Authentication"**
-3. Choose **"Password Protection"**
-4. Set a password
-5. Save
+For more details, see [`ADMIN-AUTH-SETUP.md`](./ADMIN-AUTH-SETUP.md) and [`AUTHENTICATION-SUMMARY.md`](./AUTHENTICATION-SUMMARY.md).
+
+---
+
+## Protecting the Admin Route (Already Implemented!)
+
+~~The admin tools at `/tools` are currently public.~~ **UPDATE:** Admin authentication has been implemented!
+
+- The tools are now at `/admin` instead of `/tools`
+- Protected by NextAuth.js authentication
+- Requires login with admin credentials
+- Session-based security with bcrypt password hashing
+
+To add more admins or change credentials, see [`ADMIN-AUTH-SETUP.md`](./ADMIN-AUTH-SETUP.md).
 
 Now anyone accessing `/tools` will need the password.
 

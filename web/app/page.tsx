@@ -42,10 +42,10 @@ export default function MarketingHome() {
                 Shop on Amazon
               </a>
               <Link
-                href="/tools"
+                href="/admin"
                 className="text-gray-400 hover:text-gray-300 text-sm transition-colors"
               >
-                Tools
+                Admin
               </Link>
             </div>
           </div>
