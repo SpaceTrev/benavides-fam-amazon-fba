@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as fs from 'fs';
+import { createProduct, createFile, initDatabase } from '@/lib/db';
 import * as path from 'path';
+import * as fs from 'fs';
 
-const rootDir = path.join(process.cwd(), '..');
-const productsDir = path.join(rootDir, 'products');
-const templatesDir = path.join(rootDir, 'templates', 'product-research');
+const templatesDir = path.join(process.cwd(), '..', 'templates', 'product-research');
 
 interface CreateProductKitBody {
   product: string;
@@ -16,11 +15,7 @@ function sanitizeProductName(name: string): string {
   return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }
 
-function copyAndPopulateTemplate(
-  templateName: string,
-  outputPath: string,
-  replacements: Record<string, string>
-) {
+function loadTemplate(templateName: string, replacements: Record<string, string>): string {
   const templatePath = path.join(templatesDir, templateName);
   
   if (!fs.existsSync(templatePath)) {
@@ -35,11 +30,14 @@ function copyAndPopulateTemplate(
     content = content.replace(placeholder, value);
   });
 
-  fs.writeFileSync(outputPath, content, 'utf8');
+  return content;
 }
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialize database (creates tables if needed)
+    await initDatabase();
+
     const body: CreateProductKitBody = await request.json();
     
     if (!body.product) {
@@ -52,23 +50,9 @@ export async function POST(request: NextRequest) {
     const productName = sanitizeProductName(body.product);
     const category = body.category || 'Home & Kitchen';
     const method = body.method || 'FBA';
-    const productDir = path.join(productsDir, productName);
 
-    // Check if product already exists
-    if (fs.existsSync(productDir)) {
-      return NextResponse.json(
-        { error: `Product "${productName}" already exists` },
-        { status: 409 }
-      );
-    }
-
-    // Create products directory if needed
-    if (!fs.existsSync(productsDir)) {
-      fs.mkdirSync(productsDir, { recursive: true });
-    }
-
-    // Create product directory
-    fs.mkdirSync(productDir, { recursive: true });
+    // Create product in database
+    const product = await createProduct(productName, category, method);
 
     // Prepare replacements
     const now = new Date().toISOString().split('T')[0];
@@ -79,7 +63,7 @@ export async function POST(request: NextRequest) {
       METHOD: method,
     };
 
-    // Copy templates
+    // Template definitions
     const templates = [
       { template: 'research-summary.md', output: 'README.md' },
       { template: 'validation-checklist.md', output: 'validation-checklist.md' },
@@ -90,26 +74,32 @@ export async function POST(request: NextRequest) {
 
     const createdFiles: string[] = [];
 
-    templates.forEach(({ template, output }) => {
-      const outputPath = path.join(productDir, output);
-      copyAndPopulateTemplate(template, outputPath, replacements);
+    // Create files in database
+    for (const { template, output } of templates) {
+      const content = loadTemplate(template, replacements);
+      await createFile(product.id, output, content);
       createdFiles.push(output);
-    });
-
-    // Create .gitkeep
-    fs.writeFileSync(path.join(productDir, '.gitkeep'), '', 'utf8');
+    }
 
     return NextResponse.json({
       success: true,
       product: productName,
       category,
       method,
-      path: productDir,
       files: createdFiles,
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating product kit:', error);
+    
+    // Handle duplicate product error
+    if (error.message?.includes('duplicate key')) {
+      return NextResponse.json(
+        { error: `Product already exists` },
+        { status: 409 }
+      );
+    }
+    
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }

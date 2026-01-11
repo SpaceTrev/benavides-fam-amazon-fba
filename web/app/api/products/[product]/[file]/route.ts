@@ -1,37 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as fs from 'fs';
-import * as path from 'path';
-
-const rootDir = path.join(process.cwd(), '..');
-const productsDir = path.join(rootDir, 'products');
+import { getProductByName, getFile, updateFile, initDatabase } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ product: string; file: string }> }
 ) {
   try {
+    await initDatabase();
+    
     const { product, file } = await params;
-    const filePath = path.join(productsDir, product, file);
 
-    if (!fs.existsSync(filePath)) {
+    const productRecord = await getProductByName(product);
+    if (!productRecord) {
+      return NextResponse.json(
+        { error: 'Product not found' },
+        { status: 404 }
+      );
+    }
+
+    const fileRecord = await getFile(productRecord.id, file);
+    if (!fileRecord) {
       return NextResponse.json(
         { error: 'File not found' },
         { status: 404 }
       );
     }
 
-    const content = fs.readFileSync(filePath, 'utf8');
-    const ext = path.extname(file).toLowerCase();
-
     // Determine content type
+    const ext = file.split('.').pop()?.toLowerCase();
     let contentType = 'text/plain';
-    if (ext === '.md') contentType = 'text/markdown';
-    else if (ext === '.csv') contentType = 'text/csv';
-    else if (ext === '.json') contentType = 'application/json';
+    if (ext === 'md') contentType = 'text/markdown';
+    else if (ext === 'csv') contentType = 'text/csv';
+    else if (ext === 'json') contentType = 'application/json';
 
     return NextResponse.json({
-      name: file,
-      content,
+      name: fileRecord.filename,
+      content: fileRecord.content,
       type: contentType,
     });
 
@@ -49,18 +53,26 @@ export async function PUT(
   { params }: { params: Promise<{ product: string; file: string }> }
 ) {
   try {
+    await initDatabase();
+
     const { product, file } = await params;
     const body = await request.json();
-    const filePath = path.join(productsDir, product, file);
 
-    if (!fs.existsSync(filePath)) {
+    const productRecord = await getProductByName(product);
+    if (!productRecord) {
+      return NextResponse.json(
+        { error: 'Product not found' },
+        { status: 404 }
+      );
+    }
+
+    const updatedFile = await updateFile(productRecord.id, file, body.content);
+    if (!updatedFile) {
       return NextResponse.json(
         { error: 'File not found' },
         { status: 404 }
       );
     }
-
-    fs.writeFileSync(filePath, body.content, 'utf8');
 
     return NextResponse.json({
       success: true,

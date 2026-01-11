@@ -1,44 +1,27 @@
 import { NextResponse } from 'next/server';
-import * as fs from 'fs';
-import * as path from 'path';
-
-const rootDir = path.join(process.cwd(), '..');
-const productsDir = path.join(rootDir, 'products');
-
-interface Product {
-  name: string;
-  path: string;
-  created: string;
-  files: string[];
-}
+import { getAllProducts, getFilesByProduct, initDatabase } from '@/lib/db';
 
 export async function GET() {
   try {
-    if (!fs.existsSync(productsDir)) {
-      return NextResponse.json({ products: [] });
-    }
+    // Initialize database
+    await initDatabase();
 
-    const productFolders = fs.readdirSync(productsDir, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
+    const products = await getAllProducts();
 
-    const products: Product[] = productFolders.map(name => {
-      const productPath = path.join(productsDir, name);
-      const stats = fs.statSync(productPath);
-      const files = fs.readdirSync(productPath).filter(f => f !== '.gitkeep');
+    // Get files for each product
+    const productsWithFiles = await Promise.all(
+      products.map(async (product) => {
+        const files = await getFilesByProduct(product.id);
+        return {
+          name: product.name,
+          path: `/products/${product.name}`,
+          created: product.created_at,
+          files: files.map(f => f.filename),
+        };
+      })
+    );
 
-      return {
-        name,
-        path: productPath,
-        created: stats.birthtime.toISOString(),
-        files,
-      };
-    });
-
-    // Sort by creation date, newest first
-    products.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
-
-    return NextResponse.json({ products });
+    return NextResponse.json({ products: productsWithFiles });
 
   } catch (error) {
     console.error('Error listing products:', error);
