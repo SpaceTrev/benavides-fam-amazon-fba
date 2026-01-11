@@ -4,6 +4,10 @@ dist/
 .DS_Store
 *.log
 
+# Next.js build output
+.next/
+out/
+
 # Product research folders (keep structure, not data)
 products/*/
 !products/.gitkeep
